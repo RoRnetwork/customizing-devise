@@ -69,3 +69,39 @@ root to: "welcome#index"
 ```
 
 You can also override `after_sign_in_path_for` and `after_sign_out_path_for` to customize your redirect hooks.
+
+in your `ApplicationController`:
+
+```ruby
+class ApplicationController < ActionController::Base
+    protect_from_forgery with: :exception
+    protected
+  def after_sign_in_path_for(resource)
+    home_index_path
+  end
+
+  def after_sign_out_path_for(resource)
+    new_user_session_path
+  end
+
+end
+```
+
+You can also override your `after_confirmation_path_for`,
+
+create a new controller as `confirmations_controller.rb` into controller folder,
+
+
+```ruby
+class ConfirmationsController < Devise::ConfirmationsController
+	protected
+	 def after_confirmation_path_for(resource_name, resource)
+      if signed_in?(resource_name)
+        home_index_path
+      else
+        new_session_path(resource_name)
+      end
+    end
+end
+
+```
