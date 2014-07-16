@@ -105,3 +105,5 @@ class ConfirmationsController < Devise::ConfirmationsController
 end
 
 ```
+
+Now, we can customise the default devise of  `users/sign_in` ,`users/sign_up` and `users/sign_out` as `signin`,`signup` and `signout` respectively. 
