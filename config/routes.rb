@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
     root 'welcome#index'
     get 'welcome/index'
-    get 'home/index'
+    
     get '/home', to: 'home#index'
     devise_for :users, :path => '', :path_names => {:sign_up => 'signup', :sign_in => 'signin', :sign_out => 'signout'}
   
