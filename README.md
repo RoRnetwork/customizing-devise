@@ -120,4 +120,8 @@ Now, we can customise the default devise of  `users/sign_in` ,`users/sign_up` an
   get '/home', to: 'home#index'
   ```
 
-  
+  To customize the 'devise view template ' files, uncomment Line number 255  and set it as `true`in `config/initializers/devise.rb`
+
+  ```ruby
+  config.scoped_views = true
+  ```
