@@ -127,7 +127,7 @@ Now, we can customise the default devise of  `users/sign_in` ,`users/sign_up` an
   ```
 
 
-  Add extra fields into `:users` table.
+ #### Add extra fields into `:users` table.
 
 ```console
   rails g migration AddFieldsToUsers first_name last_name avatar
@@ -136,6 +136,8 @@ Now, we can customise the default devise of  `users/sign_in` ,`users/sign_up` an
 ```
 
  Devise allows you to override the strong_params implementation from the ApplicationController pretty easily. The idea is that you put it into a before_filter to check to see if the current controller processing the request is one from Devise. If it is, then we override the parameters that are allowed.
+
+Modify `application_controller.rb` and add  email, password, password confirmation ,avatar and remember me to `configure_permitted_parameters`
 
 Add the following lines into `application_controller.rb `
 
@@ -153,8 +155,15 @@ Add the following lines into `application_controller.rb `
        .
 
       def configure_permitted_parameters
-        devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:email,:password,:first_name, :last_name, :avatar) }
+          
+        devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :avatar) }
+        
+        devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:first_name, :last_name, :email,:avatar, :password, :password_confirmation, :current_password) }
       end
 
     end
 ```
+####Add a username field in the users table(https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-sign-in-using-their-username-or-email-address)
+
+
+coming soon..
