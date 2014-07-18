@@ -125,3 +125,36 @@ Now, we can customise the default devise of  `users/sign_in` ,`users/sign_up` an
   ```ruby
   config.scoped_views = true
   ```
+
+
+  Add extra fields into `:users` table.
+
+```console
+  rails g migration AddFieldsToUsers first_name last_name avatar
+  rake db:migrate
+  rails g uploader avatar
+```
+
+ Devise allows you to override the strong_params implementation from the ApplicationController pretty easily. The idea is that you put it into a before_filter to check to see if the current controller processing the request is one from Devise. If it is, then we override the parameters that are allowed.
+
+Add the following lines into `application_controller.rb `
+
+ ```ruby
+    class ApplicationController < ActionController::Base
+
+      protect_from_forgery with: :exception
+
+      
+      before_filter :configure_permitted_parameters, if: :devise_controller?
+      protected
+       .
+       .
+       .
+       .
+
+      def configure_permitted_parameters
+        devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:email,:password,:first_name, :last_name, :avatar) }
+      end
+
+    end
+```

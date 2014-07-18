@@ -46,19 +46,20 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <%unless owner_signed_in? %>
-          <%= link_to "CustomizingDevise", root_path, :class=>"brand"%>
+          <%unless user_signed_in? %>
+          <%= link_to "Devise", root_path, :class=>"brand"%>
           <%else%>
-            <%= link_to "CustomizingDevise", home_path, :class=>"brand"%>
+            <%= link_to "Devise", home_path, :class=>"brand"%>
           <%end%>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
-            <%unless owner_signed_in? %>
-              <li><%= link_to "Sign Up", new_owner_registration_path  %></li>
-              <li><%= link_to "Sign In", new_owner_session_path  %></li>
+            <%unless user_signed_in? %>
+              <li><%= link_to "Sign Up", new_user_registration_path  %></li>
+              <li><%= link_to "Sign In", new_user_session_path  %></li>
             <%else%>
-              <li><%= link_to owner_user.email ,""%></li>
-              <li><%= link_to "Sign Out", destroy_owner_session_path  %></li>
+               <li><%= link_to image_tag  current_user.avatar, :size=>"28"  %></li>
+              <li><%= link_to current_user.email ,""%></li>
+              <li><%= link_to "Sign Out", destroy_user_session_path  %></li>
             <%end%>
             </ul>
           </div><!--/.nav-collapse -->
